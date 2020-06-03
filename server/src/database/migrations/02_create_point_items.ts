@@ -17,8 +17,8 @@ export async function up(knex: Knex) {
     })
 }
 
-export async function down(knex: Knex) {
-     //DESFAZER (DELETAR A TABELA)
+export async function down(knex: Knex) { 
+     //DESFAZER (DELETAR A TABELA) 
     return knex.schema.dropTable('point_items');
 
 }
