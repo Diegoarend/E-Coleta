@@ -11,6 +11,7 @@ const pointsController = new PointsController();
 const itemsController = new ItemsController();
 //como a conexão com o banco de dados vai demorar, devemos colocar um asyn antes da funcão e um await antes do select
 routes.get('/items',itemsController.index); 
+routes.post('/points',pointsController.index);
 routes.post('/points',pointsController.create);
 routes.get('/points/:id',pointsController.show); 
 export default routes;

@@ -3,6 +3,16 @@ import {Request, Response} from 'express';
 import knex from '../database/connection'
 
 class PointsController {
+    async index (request: Request, response: Response) {
+        const { city, uf, items } = request.query
+
+        console.log(city, uf, items)
+
+        return response.json({ok:true})
+    }
+
+
+
     async show (request: Request, response: Response) {
        // const id = request.params.id >  com destructuring fica 
         const { id }= request.params
