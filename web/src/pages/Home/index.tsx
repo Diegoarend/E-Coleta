@@ -1,6 +1,11 @@
 import React from 'react';
-import './styles.css'
-import logo from '../../assets/logo.svg'
+import { FiLogIn} from 'react-icons/fi';
+//utilizamo o Link e substituimos o href e <a> por Link e to. Assim, não iremos trocar de página, sendo uma SPA.
+import { Link } from 'react-router-dom'
+
+
+import './styles.css';
+import logo from '../../assets/logo.svg';
 
 const Home = () => {
     return (
@@ -9,8 +14,19 @@ const Home = () => {
                 <header> 
                     <img src={logo} alt="ECOLETA"/>
                 </header>
-            </div>
-           
+                <main>
+                    <h1>Seu marketplace de coleta de resíduos.</h1>
+                    <p>Ajudamos pessoas a encontrarem pontos de coleta de forma eficiente.</p>
+
+                    <Link to="/create-point">
+                        <span> 
+                            < FiLogIn />
+                        </span>
+                        <strong>Cadastre um ponto de coleta</strong>
+                    </Link>
+                </main>
+
+            </div>         
         </div>
 
     )
