@@ -6,9 +6,20 @@ class PointsController {
     async index (request: Request, response: Response) {
         const { city, uf, items } = request.query
 
-        console.log(city, uf, items)
+            // item.trim() tira o espacamento da esquerda e da direita
+        const parsedItems= String(items)
+        .split(',')
+        .map(item => Number(item.trim()))
 
-        return response.json({ok:true})
+        const points = await knex('points')
+        .join('point_items','points.id','=','point_items.point_id')
+        .whereIn('point_items.item_id',parsedItems)
+        .where('city', String(city))
+        .where('uf',String(uf))
+        .distinct()
+        .select('points.*')
+
+        return response.json(points)
     }
 
 
@@ -59,7 +70,7 @@ class PointsController {
 
     const point = {
         //short sintax, name:name > name 
-            image: 'image-fake',
+            image: 'https://images.unsplash.com/photo-1578916171728-46686eac8d58?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
             name,
             email,
             whatsapp,
@@ -82,6 +93,10 @@ class PointsController {
     })
     //agora precisamos inserir os dados na tabela que faz o relacinamento point x items
     await trx('point_items').insert(pointItems)
+
+    //sempre que use transaction é preciso dar um commit se tudo deu certo
+
+    await trx.commit();
 
     return response.json({
         id: point_id,
